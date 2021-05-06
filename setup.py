@@ -32,7 +32,7 @@ elif OSNAME == 'Darwin':
 elif OSNAME == 'Windows':
     define_macros = [('WEBVIEW_WINAPI', '1')]
     extra_cflags = ""
-    extra_ldflags = ['-framework', 'CoreAudio']
+    extra_ldflags = ['Advapi32.lib', 'Gdi32.lib']
 
 webview = Extension(
     'webview',
