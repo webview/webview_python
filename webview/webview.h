@@ -1085,7 +1085,7 @@ static int DisplayHTMLPage(struct webview *w) {
     for (const char *p = webview_url + strlen(WEBVIEW_DATA_URL_PREFIX); *q = *p;
          p++, q++) {
       if (*q == '%' && *(p + 1) && *(p + 2)) {
-        sscanf(p + 1, "%02x", q);
+        sscanf(p + 1, "%0hhx", q);
         p = p + 2;
       }
     }
@@ -1338,7 +1338,7 @@ WEBVIEW_API int webview_eval(struct webview *w, const char *js) {
   arg.vt = VT_BSTR;
   static const char *prologue = "(function(){";
   static const char *epilogue = ";})();";
-  int n = strlen(prologue) + strlen(epilogue) + strlen(js) + 1;
+  size_t n = strlen(prologue) + strlen(epilogue) + strlen(js) + 1;
   char *eval = (char *)malloc(n);
   snprintf(eval, n, "%s%s%s", prologue, js, epilogue);
   wchar_t *buf = webview_to_utf16(eval);
