@@ -1338,7 +1338,7 @@ WEBVIEW_API int webview_eval(struct webview *w, const char *js) {
   arg.vt = VT_BSTR;
   static const char *prologue = "(function(){";
   static const char *epilogue = ";})();";
-  int n = strlen(prologue) + strlen(epilogue) + strlen(js) + 1;
+  size_t n = strlen(prologue) + strlen(epilogue) + strlen(js) + 1;
   char *eval = (char *)malloc(n);
   snprintf(eval, n, "%s%s%s", prologue, js, epilogue);
   wchar_t *buf = webview_to_utf16(eval);
